@@ -14,10 +14,18 @@ public class SingletonDriver {
 
     public static WebDriver getDriver() {
         if (instance == null) {
+            System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
             instance = new ChromeDriver(getChromeOptions());
+            instance.manage().deleteAllCookies();
             instance.manage().window().maximize();
             instance.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIMEOUT, TimeUnit.SECONDS);
         }
         return instance;
+    }
+
+    public static void quit()
+    {
+        instance.quit();
+        instance =null; // we destroy the driver object after quit operation
     }
 }
