@@ -10,6 +10,7 @@ public class BasePage extends AbstractPage {
     public HeaderComponent headerComponent = new HeaderComponent();
 
     public String getPageTitle() {
+        waitForPageLoaded();
         JavascriptExecutor javascript = (JavascriptExecutor) getDriver();
         //Get current page title
         return (String)javascript.executeScript("return document.title");

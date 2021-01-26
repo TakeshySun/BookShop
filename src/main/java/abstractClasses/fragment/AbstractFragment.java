@@ -69,7 +69,6 @@ public abstract class AbstractFragment extends WebDriverWaiter {
 
     public String getDropDownElementText(By byLocator){
         Select sel = new Select(rootElement.findElement(byLocator));
-
         return sel.getFirstSelectedOption().getText();
     }
 
@@ -93,4 +92,16 @@ public abstract class AbstractFragment extends WebDriverWaiter {
         getDriver().switchTo().frame(frameElement);
     }
 
+    public void waitForPageLoaded(){
+        JavascriptExecutor js = (JavascriptExecutor)getDriver();
+        for (int i=0; i<25; i++){
+            try {
+                Thread.sleep(1000);
+            }catch (InterruptedException e) {}
+            //To check page ready state.
+            if (js.executeScript("return document.readyState").toString().equals("complete")){
+                break;
+            }
+        }
+    }
 }

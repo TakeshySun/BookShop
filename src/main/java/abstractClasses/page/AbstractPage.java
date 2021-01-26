@@ -24,10 +24,10 @@ public abstract class AbstractPage {
         JavascriptExecutor js = (JavascriptExecutor)getDriver();
 
         //Initially bellow given if condition will check ready state of page.
-        if (js.executeScript("return document.readyState").toString().equals("complete")){
-//            System.out.println("Page Is loaded.");
-            return;
-        }
+//        if (js.executeScript("return document.readyState").toString().equals("complete")){
+////            System.out.println("Page Is loaded.");
+//            return;
+//        }
 
         //This loop will rotate for 25 times to check If page Is ready after every 1 second.
         //You can replace your value with 25 If you wants to Increase or decrease wait time.

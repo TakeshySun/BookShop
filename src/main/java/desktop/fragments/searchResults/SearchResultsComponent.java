@@ -22,6 +22,7 @@ public class SearchResultsComponent extends AbstractFragment {
     }
 
     public List<String> getAllBookNames() {
+        waitForPageLoaded();
         return getAllBookItems().stream()
                 .map(book -> book.findElement(bookName).getText())
                 .collect(Collectors.toList());

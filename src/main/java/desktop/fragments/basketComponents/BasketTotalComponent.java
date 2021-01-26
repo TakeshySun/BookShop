@@ -11,10 +11,10 @@ public class BasketTotalComponent extends AbstractFragment {
     By checkoutBtn = By.cssSelector(".checkout-btn");
 
     @FindBy (css = ".basket-totals-wrap")
-    WebElement fragmentRootElement;
+    WebElement rootElement;
 
     public BasketTotalComponent() {
-        setRootElement(fragmentRootElement);
+        setRootElement(rootElement);
     }
 
     public String getDeliveryCostValueText(){
@@ -26,7 +26,7 @@ public class BasketTotalComponent extends AbstractFragment {
     }
 
     public void clickCheckoutBtn(){
-        clickElement(checkoutBtn);
+        clickElementJS(checkoutBtn);
     }
 
 }
