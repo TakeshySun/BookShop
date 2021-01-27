@@ -12,7 +12,7 @@ import static driver.CapabilitiesHelper.getFirefoxOptions;
 
 public class SingletonDriver {
 
-    private static ThreadLocal<WebDriver> instance = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> instance = new ThreadLocal<>();
 
     public static WebDriver getDriver() {
         return instance.get();
@@ -23,7 +23,7 @@ public class SingletonDriver {
         switch (browser) {
             case "chrome":
                 System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-                instance.set(new ChromeDriver(getChromeOptions()));
+                instance.set(new ChromeDriver());
                 instance.get().manage().deleteAllCookies();
                 instance.get().manage().window().maximize();
                 instance.get().manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIMEOUT, TimeUnit.SECONDS);

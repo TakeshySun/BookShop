@@ -97,6 +97,6 @@ public class CheckOutPersonalInformationComponent extends AbstractFragment {
     }
 
     private void chooseDeliveryAddress() {
-        clickElementJS(deliverySuggestion);
+        clickElement(deliverySuggestion);
     }
 }

@@ -31,8 +31,7 @@ public abstract class AbstractFragment extends WebDriverWaiter {
     }
 
     public void clickElement(By byLocator){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(byLocator));
-
+        wait.until(ExpectedConditions.elementToBeClickable(byLocator));
         Actions builder = new Actions(getDriver());
         builder.moveToElement(rootElement.findElement(byLocator))
                 .click()
@@ -41,7 +40,6 @@ public abstract class AbstractFragment extends WebDriverWaiter {
     }
 
     public void clickElementJS(By byLocator){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(byLocator));
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("arguments[0].click();", rootElement.findElement(byLocator));
     }

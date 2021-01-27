@@ -17,8 +17,7 @@ public class ResultsPopUpComponent extends AbstractFragment {
     }
 
     public void clickBasketCheckoutBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(basketCheckoutBtn));
-        clickElement(basketCheckoutBtn);
+        clickElementJS(basketCheckoutBtn);
     }
 
 }
