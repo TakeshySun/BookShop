@@ -42,7 +42,7 @@ public class SingletonDriver {
 
 
     public static void quit() {
-        instance.get().close();
+        instance.get().quit();
         instance.remove();
     }
 }
