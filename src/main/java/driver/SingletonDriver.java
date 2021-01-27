@@ -12,28 +12,10 @@ import static driver.CapabilitiesHelper.getFirefoxOptions;
 
 public class SingletonDriver {
 
-    private static WebDriver instance;
-
-//    public static WebDriver getDriver() {
-//        if (instance == null) {
-//            System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-//            instance = new ChromeDriver(getChromeOptions());
-//            instance.manage().deleteAllCookies();
-//            instance.manage().window().maximize();
-//            instance.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIMEOUT, TimeUnit.SECONDS);
-//
-//        }
-//        return instance;
-//    }
+    private static ThreadLocal<WebDriver> instance = new ThreadLocal<>();
 
     public static WebDriver getDriver() {
-        if (instance == null) {
-            instance.manage().deleteAllCookies();
-            instance.manage().window().maximize();
-            instance.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIMEOUT, TimeUnit.SECONDS);
-        }
-
-        return instance;
+        return instance.get();
     }
 
     public static WebDriver createDriver(String browser) {
@@ -41,18 +23,18 @@ public class SingletonDriver {
         switch (browser) {
             case "chrome":
                 System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-                instance = new ChromeDriver(getChromeOptions());
-                instance.manage().deleteAllCookies();
-                instance.manage().window().maximize();
-                instance.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIMEOUT, TimeUnit.SECONDS);
-                return instance;
+                instance.set(new ChromeDriver(getChromeOptions()));
+                instance.get().manage().deleteAllCookies();
+                instance.get().manage().window().maximize();
+                instance.get().manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIMEOUT, TimeUnit.SECONDS);
+                return instance.get();
             case "firefox":
                 System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
-                instance = new FirefoxDriver(getFirefoxOptions());
-                instance.manage().deleteAllCookies();
-                instance.manage().window().maximize();
-                instance.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIMEOUT, TimeUnit.SECONDS);
-                return instance;
+                instance.set(new FirefoxDriver(getFirefoxOptions()));
+                instance.get().manage().deleteAllCookies();
+                instance.get().manage().window().maximize();
+                instance.get().manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIMEOUT, TimeUnit.SECONDS);
+                return instance.get();
             default:
                 throw new IllegalStateException("This driver is not supported");
         }
@@ -60,7 +42,7 @@ public class SingletonDriver {
 
 
     public static void quit() {
-        instance.quit();
-        instance = null; // we destroy the driver object after quit operation
+        instance.get().close();
+        instance.remove();
     }
 }

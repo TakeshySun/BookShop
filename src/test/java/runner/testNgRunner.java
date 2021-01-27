@@ -1,14 +1,11 @@
 package runner;
 
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-import org.testng.annotations.Parameters;
 
 
-import static driver.SingletonDriver.createDriver;
-import static driver.SingletonDriver.quit;
+import static driver.SingletonDriver.*;
 
 @CucumberOptions
         (
@@ -26,13 +23,13 @@ import static driver.SingletonDriver.quit;
 public class testNgRunner extends AbstractTestNGCucumberTests {
 
     @Parameters("browser")
-    @BeforeTest
+    @BeforeClass
     public static void setUpScenario(String browser) {
-        createDriver(browser);
+            createDriver(browser);
     }
 
-//    @AfterTest
-//    public void down(){
-//        quit();
-//    }
+    @AfterClass
+    public void down(){
+        quit();
+    }
 }

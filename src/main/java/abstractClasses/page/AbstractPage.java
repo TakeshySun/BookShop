@@ -31,7 +31,7 @@ public abstract class AbstractPage {
 
         //This loop will rotate for 25 times to check If page Is ready after every 1 second.
         //You can replace your value with 25 If you wants to Increase or decrease wait time.
-        for (int i=0; i<25; i++){
+        for (int i=0; i<10; i++){
             try {
                 Thread.sleep(1000);
             }catch (InterruptedException e) {}

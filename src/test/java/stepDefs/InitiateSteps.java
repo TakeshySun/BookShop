@@ -13,10 +13,10 @@ public class InitiateSteps {
 //        createDriver("chrome");
 //    }
     //After for run in cucumber
-    @After
-    public void down(){
-        quit();
-    }
+//    @After
+//    public void down(){
+//        quit();
+//    }
 
     @Given("I am an anonymous customer with clear cookies")
     public void iAmAnAnonymousCustomerWithClearCookies() {
