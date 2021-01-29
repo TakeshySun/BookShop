@@ -20,7 +20,7 @@ public class SingletonDriver {
 
     public static WebDriver createDriver(String browser) {
 
-        switch (browser) {
+        switch (browser.toLowerCase()) {
             case "chrome":
                 System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
                 instance.set(new ChromeDriver());

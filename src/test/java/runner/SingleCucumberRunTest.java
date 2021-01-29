@@ -4,6 +4,7 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
+
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = {"src/test/resources/features"},
@@ -11,6 +12,6 @@ import org.junit.runner.RunWith;
         plugin = {"json:target/cucumber-reports/Cucumber.json"},
         tags = "@Runme"
 )
-
-public class TestRunner {
+// Parallel run: mvn install test DbrowserName=chrome or firefox
+public class SingleCucumberRunTest {
 }

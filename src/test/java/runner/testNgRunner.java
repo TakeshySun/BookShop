@@ -9,7 +9,7 @@ import static driver.SingletonDriver.*;
 
 @CucumberOptions
         (
-                features = "src/test/resources/features", //the path of the feature files
+                features = "src/test/resources/features/DesktopCheckoutForGuestUser.feature", //the path of the feature files
                 glue="stepDefs", //the path of the step definition files
                 plugin= {"pretty:target/cucumber-pretty.txt",
                         "html:target/cucumber-html-report",
