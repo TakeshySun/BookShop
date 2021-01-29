@@ -12,6 +12,6 @@ import org.junit.runner.RunWith;
         plugin = {"json:target/cucumber-reports/Cucumber.json"},
         tags = "@Runme"
 )
-// Parallel run: mvn install test DbrowserName=chrome or firefox
+// Parallel run: mvn clean install test -DbrowserName=chrome or firefox
 public class SingleCucumberRunTest {
 }
