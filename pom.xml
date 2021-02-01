@@ -158,9 +158,9 @@
         <configuration>
           <parallel>methods</parallel>
           <threadCount>2</threadCount>
-          <excludes>
-            <exclude>**/Test.java</exclude>
-          </excludes>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
         </configuration>
         <dependencies>
           <dependency>
