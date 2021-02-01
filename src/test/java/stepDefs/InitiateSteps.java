@@ -21,6 +21,6 @@ public class InitiateSteps {
 
     @Given("I am an anonymous customer with clear cookies")
     public void iAmAnAnonymousCustomerWithClearCookies() {
-        getDriver();
+//        getDriver();
     }
 }
