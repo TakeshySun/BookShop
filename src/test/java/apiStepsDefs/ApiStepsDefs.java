@@ -1,7 +1,9 @@
 package apiStepsDefs;
 
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
+import io.cucumber.java.en.*;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,10 +26,10 @@ public class ApiStepsDefs {
 
     @And("add product in cart")
     public void addProductInCart() throws Exception {
-        apiHelper.addProduct("src/main/resources/templateApi", baseUrl);
+        apiHelper.addProduct("src/main/resources/addProductTemplate", baseUrl);
     }
 
-    @And("open cart in web")
+    @Then("open cart in web and verify product")
     public void openCartInWeb() {
 
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
@@ -38,6 +40,16 @@ public class ApiStepsDefs {
         driver.manage().addCookie(new Cookie("kvn-cart", apiHelper.storage.get("guid").toString()));
         driver.navigate().refresh();
 
+        //Web navigation
+        driver.findElement(new By.ByCssSelector("#onetrust-accept-btn-handler")).click();
+        driver.findElement(new By.ByCssSelector("e2-select-country-dialog > div > div > div > e2-action-button:nth-child(2) > v-root > button > span.button__text")).click();
+        //Web verification
+        String productName = driver.findElement(new By.ByCssSelector(" div.product-summary__description-name")).getText();
+        String productQuantity = driver.findElement(new By.ByCssSelector("span.select__selected-option")).getText();
+        Assert.assertEquals("Kruidvat Sensitive Handzeep Navulling", productName);
+        Assert.assertEquals("5", productQuantity);
+
         driver.quit();
     }
+
 }

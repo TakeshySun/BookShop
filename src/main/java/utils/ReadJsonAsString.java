@@ -15,7 +15,7 @@ public class ReadJsonAsString {
 
     public String parseJsonTemplate(String filePath, Map<String, Object> values) throws Exception {
         String jsonTxt = new ReadJsonAsString().readFileAsString(filePath);
-        System.out.println(jsonTxt);
+//        System.out.println(jsonTxt);
         StringSubstitutor stringSubstitutor = new StringSubstitutor(values, "{{", "}}");
         return stringSubstitutor.replace(jsonTxt).replaceAll("\\s", "");
     }

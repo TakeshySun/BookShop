@@ -4,8 +4,11 @@ import api.ProductCode;
 import api.ProductQuantity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.RestAssured;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import static org.hamcrest.Matchers.equalTo;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,11 +26,7 @@ public class ApiHelper {
                 .spec(requestSpecification)
                 .post();
         String guid = response.jsonPath().get("guid");
-        String code = response.jsonPath().get("code");
-        String quantity = response.jsonPath().get("quantity");
         storage.put("guid", guid);
-        storage.put("quantity", quantity);
-        storage.put("code", code);
     }
 
     // Simple RestAssured post
@@ -65,19 +64,32 @@ public class ApiHelper {
     public void addProduct(String filePath, String url) throws Exception {
         Map<String, Object> values = new HashMap<>();
         values.put("code", "2876350");
-        values.put("quantity", 1);
+        values.put("quantity", 5);
 
         String parsedJson = new ReadJsonAsString().parseJsonTemplate(filePath, values);
 
         requestSpecification = RestAssured.given()
                 .baseUri(url)
-                .basePath(String.format("/api/v2/kvn/users/anonymous/carts/%s/entries", storage.get("guid").toString()))
+                .basePath(getCardGuidEndpoint())
                 .contentType("application/json;charset=UTF-8");
-        RestAssured.given()
+        Response response = RestAssured.given()
                 .spec(requestSpecification)
                 .body(parsedJson)
                 .when()
                 .post();
+
+//        response.prettyPrint(); // Helper - Print post response body
+
+        //  Validation
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("expectedJSONSchema.json"))
+                .body("entry.product.code", equalTo("2876350"))
+                .body("quantity", equalTo(5));
     }
 
+    private String getCardGuidEndpoint(){
+        return String.format("/api/v2/kvn/users/anonymous/carts/%s/entries", storage.get("guid").toString());
+    }
 }
