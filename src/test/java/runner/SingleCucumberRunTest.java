@@ -9,7 +9,12 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = {"src/test/resources/features"},
         glue = "stepDefs",
-        plugin = {"json:target/cucumber-reports/Cucumber.json"},
+        plugin = {
+                "pretty",
+//                "json:target/cucumber-reports/Cucumber.json",
+                "com.epam.reportportal.cucumber.ScenarioReporter"
+//                "com.epam.reportportal.cucumber.StepReporter"
+                },
         tags = "@Runme"
 )
 // Parallel run: mvn clean test -DbrowserName=chrome or firefox

@@ -1,10 +1,13 @@
 package driver;
 
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 
 public class jdbDriver {
 
     private Connection con;
+    public Logger log = Logger.getLogger(jdbDriver.class.getName());
 
     public void setUpJDBC() {
         //Connection URL Syntax: "jdbc:mysql://ipaddress:portnumber/db_name"
@@ -12,7 +15,7 @@ public class jdbDriver {
         //Database Username
         String username = "root";
         //Database Password
-        String password = "root";
+        String password = "root1";
 
         //Load mysql jdbc driver
         try {
@@ -27,6 +30,7 @@ public class jdbDriver {
             con = DriverManager.getConnection(dbUrl, username, password);
         } catch (SQLException throwable) {
             System.out.println("--------->MySQL SQL Exception cannot connect to DB--------->");
+            log.warn("SQL Connection Fail");
             throwable.printStackTrace();
         }
     }
