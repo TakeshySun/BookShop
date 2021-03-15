@@ -60,3 +60,4 @@ fabric.properties
 NewProject.iml
 debug.log
 mavenProj.iml
+*.log
