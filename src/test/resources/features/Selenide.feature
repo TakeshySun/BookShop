@@ -11,6 +11,6 @@ Feature: Desktop Checkout for Guest User
     And Search results contain the following product "Thinking in Java"
     And I click Add to basket button for product with name "Thinking in Java"
     And I select BasketCheckout in basket pop-up
-    And Basket order summary is following:
+    Then Basket order summary is following:
       | Delivery cost | Total   |
       | FREE          | 79,77 € |
